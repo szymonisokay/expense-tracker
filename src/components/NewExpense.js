@@ -1,13 +1,16 @@
-import React from 'react'
-import ExpenseForm from './ExpenseForm'
+import React from "react";
+import ExpenseForm from "./ExpenseForm";
 
-const NewExpense = () => {
-    return (
-        <div className="new-expense">
-            <ExpenseForm />
-            
-        </div>
-    )
-}
+const NewExpense = ({ addExpense }) => {
+  const handleAddExpense = (expense) => {
+    addExpense(expense);
+  };
 
-export default NewExpense
+  return (
+    <div className="new-expense">
+      <ExpenseForm onAddExpense={handleAddExpense} />
+    </div>
+  );
+};
+
+export default NewExpense;
