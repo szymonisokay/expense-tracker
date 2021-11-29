@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const ExpenseForm = ({ onAddExpense }) => {
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
+  const [title, setTitle] = useState("")
+  const [amount, setAmount] = useState("")
+  const [date, setDate] = useState("")
+  const [formShown, setFormShown] = useState(false)
 
   const submitFormHandler = (event) => {
-    event.preventDefault();
+    event.preventDefault()
+
+    if (!title || !amount || !date) return
 
     const newExpense = {
       title,
-      amount,
+      amount: +amount,
       date: new Date(date),
-    };
+    }
 
-    onAddExpense(newExpense);
-  };
+    setAmount("")
+    setDate("")
+    setTitle("")
+    setFormShown(false)
+    onAddExpense(newExpense)
+  }
+
+  if (!formShown) {
+    return <button onClick={() => setFormShown(true)}>Add new expense</button>
+  }
 
   return (
     <form onSubmit={submitFormHandler}>
@@ -48,10 +59,13 @@ const ExpenseForm = ({ onAddExpense }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={() => setFormShown(false)}>
+          Close
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default ExpenseForm;
+export default ExpenseForm
